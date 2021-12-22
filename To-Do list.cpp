@@ -1,8 +1,8 @@
 /**
- * Nombre: Agustin Silvero Castillo aka vektor
- * Programa: To-Do List / Lista de quehaceres
- * Fecha: 16/12/21
- * Proposito: Una lista de cosas para hacer, se pueden agregar, eliminar, modificar, marcar, entre otros, las tareas agregadas.
+ * Name: Agustin Silvero Castillo aka vektor
+ * App: To-Do List / Lista de quehaceres
+ * Date: 16/12/21
+ * Purpose: A To-Do list. ATM: You can add tasks and display the lis. Working on deleting, modifying and changing the state (done/in progress)
  * Notas: Usar strings
 **/
 
@@ -32,38 +32,38 @@ int main(){
     char input;
     int id = 1;
     Nodo* lista = NULL;
-    cout << "Bienvenido" << endl << "Las funciones de la lista son las siguentes:" << endl;
-    cout << "a: agregar | e: eliminar " << endl << "m: modificar una tarea | q: cambiar estado" << endl;
-    cout << "s: mostrar la lista" << endl;
-    cout << "Porfavor elija una y presione enter, para salir ingrese x" << endl;
+    cout << "Welcome" << endl << "The list's functions are the following:" << endl;
+    cout << "a: add | e: delete " << endl << "m: modify a task | q: change state" << endl;
+    cout << "s: show the list" << endl;
+    cout << "Please enter a key with your desired option, then press enter. To quit enter 'x' " << endl;
     cin >> input;
     cin.ignore(numeric_limits<streamsize>::max(),'\n'); // limpia el buffer y el \n en el buffer
     
     while (input!='x'){
         switch(input){
             case 'a':
-            cout << "Opcion a" << endl;
+            cout << "Option a" << endl;
             agregar(lista, id); // crashea en el procedimiento
             break;
             
             case 'e':
-            cout << "Opcion e" << endl;
+            cout << "Option e" << endl;
             break;
             
             case 'm':
-            cout << "Opcion m" << endl;
+            cout << "Option m" << endl;
             break;
             
             case 'q':
-            cout << "Opcion q" << endl;
+            cout << "Option q" << endl;
             break;
             
             case 's':
-            cout << "Opcion show" << endl;
+            cout << "Option s" << endl;
             mostrar(lista);
             break;
         }//fin switch
-        cout << "Ingrese otra opcion para continuar" << endl;
+        cout << "Enter an option to continue" << endl;
         cin >> input;
         cin.ignore(numeric_limits<streamsize>::max(),'\n');
     }
@@ -76,9 +76,9 @@ void agregar(Nodo* &lista, int &id){
     Nodo* nuevo = new Nodo();
     nuevo->info.id = id;
     id++;
-    cout << "Ingrese un titulo" << endl;
+    cout << "Enter a title" << endl;
     cin.getline(nuevo->info.titulo, 28);
-    cout << "Ingrese una descripcion" << endl;
+    cout << "Enter a description" << endl;
     cin.getline(nuevo->info.desc, 256);
     nuevo->info.estado = false;
     nuevo->sig = NULL;
@@ -95,15 +95,13 @@ void agregar(Nodo* &lista, int &id){
 
 void mostrar(Nodo*lista){
     if (lista == NULL)
-        cout << "La lista esta vacia" << endl;
+        cout << "The list is empty" << endl;
     Nodo* aux = lista;
     while (aux!=NULL){
         cout << "ID: " << aux->info.id << endl;
-        cout << "Titulo: " << aux->info.titulo << endl;
-        cout << "Descripcion: " << endl << aux->info.desc << endl;
-        cout << "Estado: " << aux->info.estado << endl;
+        cout << "Title: " << aux->info.titulo << endl;
+        cout << "Description: " << endl << aux->info.desc << endl;
+        cout << "State: " << aux->info.estado << endl;
         aux = aux->sig;
     }
 } //fin mostrar
-
-
