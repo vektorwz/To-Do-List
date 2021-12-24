@@ -3,7 +3,6 @@
  * App: To-Do List / Lista de quehaceres
  * Date: 16/12/21
  * Purpose: A To-Do list. ATM: You can add tasks and display the lis. Working on deleting, modifying and changing the state (done/in progress)
- * Notas: Usar strings
 **/
 
 #include <iostream>
@@ -27,6 +26,8 @@ struct Nodo{
 
 void agregar(Nodo* &lista, int &id);
 void mostrar(Nodo*lista);
+void eliminar(Nodo*&lista, int &id);
+Nodo* buscar(Nodo*lista, int val);
 
 int main(){
     char input;
@@ -43,11 +44,12 @@ int main(){
         switch(input){
             case 'a':
             cout << "Option a" << endl;
-            agregar(lista, id); // crashea en el procedimiento
+            agregar(lista, id);
             break;
             
             case 'e':
             cout << "Option e" << endl;
+            eliminar(lista, id);
             break;
             
             case 'm':
@@ -78,8 +80,10 @@ void agregar(Nodo* &lista, int &id){
     id++;
     cout << "Enter a title" << endl;
     cin.getline(nuevo->info.titulo, 28);
+    
     cout << "Enter a description" << endl;
     cin.getline(nuevo->info.desc, 256);
+    
     nuevo->info.estado = false;
     nuevo->sig = NULL;
     
@@ -96,12 +100,56 @@ void agregar(Nodo* &lista, int &id){
 void mostrar(Nodo*lista){
     if (lista == NULL)
         cout << "The list is empty" << endl;
+        
     Nodo* aux = lista;
+    
     while (aux!=NULL){
         cout << "ID: " << aux->info.id << endl;
         cout << "Title: " << aux->info.titulo << endl;
         cout << "Description: " << endl << aux->info.desc << endl;
-        cout << "State: " << aux->info.estado << endl;
+        cout << "State: " << aux->info.estado << endl << endl;
         aux = aux->sig;
     }
 } //fin mostrar
+
+
+void eliminar(Nodo*&lista, int &id){
+    Nodo* aux = lista;
+    Nodo* ant;
+    int auxId;
+    cout << "Enter the task's ID you wish to delete" << endl;
+    cin >> auxId;
+    
+    while (aux->info.id != auxId && aux != NULL){
+        ant = aux;
+        aux = aux->sig;
+    }
+    
+    if (aux == NULL) // pregunto si no se encontro el elemento
+        cout << "The ID doesn't exist" << endl;
+    else {
+        if (lista == aux) // pregunto si el nodo es el primero
+            lista = NULL;
+        else{ //caso contrario se encontro el elemento y procedo normal
+            ant->sig = aux->sig; // conecto las estructuras anterior y siguiente
+            
+            ant = ant->sig; // avanzo el puntero ant
+            while (ant != NULL){ // acomodo los ids para que queden ordenados
+                ant->info.id--;
+                ant = ant->sig;   
+            }
+            delete aux;
+        }
+        id--;
+    } // fin else
+} // fin eliminar
+
+Nodo* buscar(Nodo*lista, int val){
+    Nodo* aux = lista;
+    
+    while (aux->info.id != val){
+        aux = aux->sig;
+    }
+    
+    return aux;   
+} // fin buscar
