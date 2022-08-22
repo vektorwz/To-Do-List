@@ -34,7 +34,7 @@ int main(){
     int id = 1;
     Nodo* lista = NULL;
     cout << "Welcome" << endl << "The list's functions are the following:" << endl;
-    cout << "a: add | e: delete " << endl << "m: modify a task | q: change state" << endl;
+    cout << "a: add | d: delete " << endl << "m: modify a task | q: change state" << endl;
     cout << "s: show the list" << endl;
     cout << "Please enter a key with your desired option, then press enter. To quit enter 'x' " << endl;
     cin >> input;
@@ -47,8 +47,8 @@ int main(){
             agregar(lista, id);
             break;
             
-            case 'e':
-            cout << "Option e" << endl;
+            case 'd':
+            cout << "Option d" << endl;
             eliminar(lista, id);
             break;
             
@@ -98,6 +98,7 @@ void agregar(Nodo* &lista, int &id){
 } //fin agregar
 
 void mostrar(Nodo*lista){
+    cout << "Showing" << '\n' << "==============" << endl;
     if (lista == NULL)
         cout << "The list is empty" << endl;
         
@@ -107,8 +108,9 @@ void mostrar(Nodo*lista){
         cout << "ID: " << aux->info.id << endl;
         cout << "Title: " << aux->info.titulo << endl;
         cout << "Description: " << endl << aux->info.desc << endl;
-        cout << "State: " << aux->info.estado << endl << endl;
+        cout << "State: " << aux->info.estado << endl;
         aux = aux->sig;
+        cout << "-----------------" << endl;
     }
 } //fin mostrar
 
