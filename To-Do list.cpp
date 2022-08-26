@@ -2,7 +2,7 @@
  * Name: Agustin Silvero Castillo aka vektor
  * App: To-Do List / Lista de quehaceres
  * Date: 16/12/21
- * Purpose: A To-Do list. ATM: You can add tasks and display the lis. Working on deleting, modifying and changing the state (done/in progress)
+ * Purpose: A To-Do list. ATM: You can add tasks and display the lis. Working on modifying and changing the state (done/in progress)
 **/
 
 #include <iostream>
@@ -28,6 +28,7 @@ void agregar(Nodo* &lista, int &id);
 void mostrar(Nodo*lista);
 void eliminar(Nodo*&lista, int &id);
 Nodo* buscar(Nodo*lista, int val);
+void modificar(Nodo*&lista);
 
 int main(){
     char input;
@@ -54,6 +55,7 @@ int main(){
             
             case 'm':
             cout << "Option m" << endl;
+            modificar(lista);
             break;
             
             case 'q':
@@ -121,7 +123,6 @@ void eliminar(Nodo*&lista, int &id){
     int auxId;
     cout << "Enter the task's ID you wish to delete" << endl;
     cin >> auxId;
-    
     while (aux->info.id != auxId && aux != NULL){
         ant = aux;
         aux = aux->sig;
@@ -149,9 +150,33 @@ void eliminar(Nodo*&lista, int &id){
 Nodo* buscar(Nodo*lista, int val){
     Nodo* aux = lista;
     
-    while (aux->info.id != val){
+    while (aux->info.id != val)
         aux = aux->sig;
-    }
-    
-    return aux;   
+        return aux;   
 } // fin buscar
+
+void modificar(Nodo*&lista){
+    Nodo* aux = lista;
+    char entrada;
+    int val;
+    
+    cout << "Ingrese el ID de la tarea que quiere modificar" << endl;
+    cin >> val;
+    while (aux->info.id != val && aux!=NULL)
+        aux = aux->sig;
+    if (aux == NULL)
+        cout << "No se encontro el ID ingresado" << endl;
+    else{
+        cout << "Para modificar titulo ingrese 'a' | descripcion 'b'" << endl;
+        cin >> entrada;
+            switch (entrada){
+            case 'a':
+                cin.getline(aux->info.titulo, 28);
+            break;
+            
+            case 'b':
+                cin.getline(aux->info.desc, 256);
+            break;
+         }
+    } //fin else
+} //fin modificar
